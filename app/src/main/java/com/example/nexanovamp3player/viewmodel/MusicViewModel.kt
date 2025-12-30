@@ -67,7 +67,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
 
             // Sync initial state from the service's player
             controller?.let { player ->
-                // Add this line to sync the song name immediately on connect
+                //  sync the song name immediately on connect
                 updateCurrentSongFromController()
                 isPlaying = player.isPlaying
                 isShuffleEnabled = player.shuffleModeEnabled
@@ -81,7 +81,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                     override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
                         updateCurrentSongFromController()
                     }
-                    // Optional: Update duration when the track changes
+                    //  Update duration when the track changes
                     override fun onPlaybackStateChanged(playbackState: Int) {
                         if (playbackState == Player.STATE_READY) {
                             duration = player.duration
@@ -97,7 +97,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun play(song: Song) {
-        // 1. Convert your entire list of songs to MediaItems
+
         val mediaItems = songs.map { currentSong ->
             MediaItem.Builder()
                 .setMediaId(currentSong.id.toString())
@@ -111,11 +111,11 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                 .build()
         }
 
-        // 2. Find the index of the song the user clicked
+
         val index = songs.indexOf(song)
 
         controller?.let { player ->
-            // 3. Set the whole list, but start at the specific index
+
             player.setMediaItems(mediaItems, index, 0L)
             player.prepare()
             player.play()
